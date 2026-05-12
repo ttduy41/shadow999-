@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADOW SHOP - VIP MENU</title>
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --bg: #0b0f19;
+            --card: #16213e;
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Giao diện Header & Menu 3 gạch */
+        header {
+            background: rgba(22, 33, 62, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Sidebar Menu giống video */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--card);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 200;
+            border-right: 1px solid var(--primary);
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: var(--primary);
+            background: rgba(0, 242, 255, 0.1);
+        }
+
+        /* Card Sản Phẩm */
+        .container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid #30475e;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .btn-buy {
+            background: var(--primary);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Nút Telegram & Zalo */
+        .social-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .social-btn a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tele { background: #0088cc; }
+        .zalo { background: #0068ff; }
+
+        /* Admin & Login (Ẩn mặc định) */
+        #admin-panel, #login-form, #register-form { display: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <div style="font-weight: bold; color: var(--primary);">SHADOW SHOP</div>
+    <div id="user-info">Khách</div>
+</header>
+
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" onclick="toggleMenu()">× Đóng</a>
+    <a href="#" onclick="showSection('home')">Trang Chủ</a>
+    <a href="#" onclick="showSection('recharge')">Nạp Thẻ</a>
+    <a href="#" onclick="showSection('history')">Lịch Sử Giao Dịch</a>
+    <a href="#" onclick="showSection('orders')">Đơn Hàng</a>
+    <a href="#" id="admin-link" style="display:none;" onclick="showSection('admin')">QUẢN LÝ ADMIN</a>
+    <a href="#" onclick="logout()">Đăng Xuất</a>
+</div>
+
+<div id="main-content">
+    <div id="home-section" class="container">
+        <div class="product-card">
+            <img src="link_anh_acc_clone.jpg" class="product-img" alt="Acc Clone LV5">
+            <h3>Acc Clone LV5</h3>
+            <p>Mô tả: Acc clone level 5 ổn định cho ae test menu.</p>
+            <p>Giá: 2,500đ | Kho: 99</p>
+            <button class="btn-buy" onclick="buyItem('Acc Clone LV5', 2500)">MUA NGAY</button>
+        </div>
+
+        <div class="product-card">
+            <img src="LINK_ANH_LY_NUOC_TIM" class="product-img" alt="Drip Silent">
+            <h3>Drip Silent</h3>
+            <p style="font-size: 12px;">Menu antiband update thường xuyên. Lưu ý: Log acc clone chơi trước 1 trận...</p>
+            <button class="btn-buy" onclick="openTimeOption('Drip')">MUA NGAY</button>
+        </div>
+
+        <div class="product-card">
+            <img src="LINK_ANH_ZYGAME" class="product-img" alt="Zygame">
+            <h3>Zygame</h3>
+            <p style="font-size: 12px;">Menu antiband update thường xuyên. Lưu ý: Log acc clone chơi trước 1 trận...</p>
+            <button class="btn-buy" onclick="openTimeOption('Zygame')">MUA NGAY</button>
+        </div>
+    </div>
+
+    <div id="recharge-section" style="display:none; padding: 20px; text-align: center;">
+        <h2>Nạp Thẻ Cào (Chiết Khấu 20%)</h2>
+        <input type="text" id="card-serial" placeholder="Số Seri" style="padding:10px; margin:5px;"><br>
+        <input type="text" id="card-code" placeholder="Mã Thẻ" style="padding:10px; margin:5px;"><br>
+        <button class="btn-buy" style="width: 200px;" onclick="requestRecharge()">GỬI THẺ (CHỜ DUYỆT)</button>
+    </div>
+</div>
+
+<div class="social-btn">
+    <a href="https://t.me/+ktWnTQrZAKthYmZl" class="tele">Tele</a>
+    <a href="https://zalo.me/84364684151" class="zalo">Zalo</a>
+</div>
+
+<script>
+    // 1. Tự động lưu dữ liệu (Auto-save)
+    let userData = JSON.parse(localStorage.getItem('shadowUser')) || { name: "Khách", balance: 0, isAdmin: false };
+    
+    function saveStatus() {
+        localStorage.setItem('shadowUser', JSON.stringify(userData));
+    }
+
+    // 2. Xử lý Menu
+    function toggleMenu() {
+        let sb = document.getElementById("mySidebar");
+        sb.style.width = sb.style.width === "250px" ? "0" : "250px";
+    }
+
+    // 3. Xử lý Mua hàng & Key (Chỉ hiện 1 lần)
+    function buyItem(name, price) {
+        if (userData.balance < price) {
+            alert("Bạn không đủ tiền! Vui lòng nạp thêm.");
+            return;
+        }
+        let orderID = "#SHADOW" + Math.random().toString(36).substr(2, 9).toUpperCase();
+        let key = "KEY-" + Math.random().toString(36).substr(2, 12).toUpperCase();
+        
+        userData.balance -= price;
+        saveStatus();
+        
+        // Bảng hiện key 1 lần duy nhất
+        alert(`MUA THÀNH CÔNG!\nMã đơn: ${orderID}\nKey của bạn: ${key}\n(Lưu ý: Copy ngay, key sẽ không hiện lại lần 2!)`);
+    }
+
+    // 4. Admin Auto-Login (Shadow+999 / HV0308hv)
+    // Bạn có thể thêm form đăng nhập để kích hoạt quyền isAdmin
+    if (userData.isAdmin) {
+        document.getElementById('admin-link').style.display = "block";
+    }
+
+    function showSection(id) {
+        // Hàm chuyển đổi giữa các trang (Home, Nạp thẻ, Admin...)
+        document.getElementById('home-section').style.display = (id === 'home') ? 'grid' : 'none';
+        document.getElementById('recharge-section').style.display = (id === 'recharge') ? 'block' : 'none';
+        toggleMenu();
+    }
+    
+    // Auto-load khi vào lại web
+    window.onload = function() {
+        if(userData.name !== "Khách") {
+            document.getElementById('user-info').innerText = userData.name + " | " + userData.balance + "đ";
+        }
+    }
+</script>
+</body>
+</html>
